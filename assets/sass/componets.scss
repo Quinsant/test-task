@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
     font-family: 'Montserrat';
     src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
@@ -17,10 +16,17 @@ a, h1, h2, p, span, li, label {
     @apply text-white;
 }
 
+@mixin view-content{
+    animation: viewBlock 1.5s ease forwards;
+    @keyframes viewBlock {
+        from {opacity: 0%}
+        to {opacity: 100%;}
+    }
+}
+
 @mixin logo {
     @apply py-2 border-y border-white h-8;
 }
-
 
 @mixin header-flex-center {
     @apply justify-center items-center gap-10;
@@ -61,7 +67,7 @@ a, h1, h2, p, span, li, label {
 
 // панель навигации
 @mixin navigation($mobile: true) {
-    @apply flex w-auto justify-end lg:justify-center items-center flex-1;
+    @apply flex w-auto justify-center items-start lg:items-center flex-1;
 
     .navbar-urls {
         @include header-flex-center();
@@ -75,6 +81,9 @@ a, h1, h2, p, span, li, label {
         li {
             @apply text-white text-xl lg:text-sm font-[400];
             font-family: 'Montserrat', sans-serif;
+            &:hover {
+                @apply border-b border-white;
+            }
         }
 
     }
@@ -83,9 +92,13 @@ a, h1, h2, p, span, li, label {
 // размытие заднего 
 @mixin blur() {
     @apply fixed w-full h-full bg-[#0F1D4599] top-0 left-0 z-0 backdrop-blur-sm;
-
+    animation: viewBlur .45s ease forwards;
     &[hidden] {
-        @apply hidden;
+        @apply hidden opacity-0;
+    }
+    @keyframes viewBlur {
+        from {opacity: 0%;}
+        to {opacity: 100%;}
     }
 }
 
@@ -199,7 +212,7 @@ a, h1, h2, p, span, li, label {
         }
     }
     @keyframes view {
-        from {@apply -translate-x-[100%];}
-        to {@apply translate-x-[0%];}
+        from {@apply -ml-[100%];}
+        to {@apply -ml-0;}
     }
 }
